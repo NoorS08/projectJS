@@ -2,131 +2,72 @@
 ביסאם פרח 211861208 -->
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Phone Book</title>
-  <link rel="stylesheet" href="style.css"/>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Phone Book</title>
+    <link rel="stylesheet" href="style.css" /> <!-- קישור לקובץ העיצוב -->
+  </head>
+  <body>
+    <div class="container">
+      <header>
+      <h1>📖 Phone Book</h1> <!-- כותרת ראשית של הדף -->
+</header>
+<main>
+  <!-- אזור עליון עם שורת חיפוש וכפתורים -->
+      <div class="top-bar">
+        <span class="contact-count">0 contacts</span> <!-- מונה אנשי קשר -->
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="Search contacts..."
+          class="search-bar"
+        />
+        <div class="actions">
+          <button id="addBtn" class="btn add-btn">👤➕ Add Contact</button> <!-- כפתור הוספה -->
+          <button id="deleteAllBtn" class="btn delete-all"> <!-- כפתור מחיקת הכל -->
+            🗑️ Delete All
+          </button> 
+          <button id="effectBtn" class="btn night-mode">🌙 Night Mode</button> <!-- כפתור מצב לילה -->
+        </div>
+      </div>
 
-  <div class="container">
-    <h1>📖 Phone Book</h1>
+      <ul id="contactsList" class="contact-list"></ul> <!-- רשימת אנשי קשר תיווצר ב-JS -->
+    </div>
 
-    <div class="top-bar">
-      <span class="contact-count">7 contacts</span>
-      <input type="text" placeholder="Search contacts..." class="search-bar">
-      <div class="actions">
-        <button class="btn add-btn">👤➕ Add Contact</button>
-        <button class="btn delete-all">🗑️ Delete All</button>
-        <button class="btn night-mode">🌙 Night Mode</button>
+    <!-- Popup Form -->
+    <!-- טופס קופץ להוספה / עריכה -->
+    <div id="popupOverlay" class="hidden">
+      <div class="popup">
+        <h2>Add / Edit Contact</h2>
+        <form id="contactForm">
+          <input type="text" id="nameInput" placeholder="Name" required />
+          <input type="tel" id="phoneInput" placeholder="Phone" required />
+          <input type="email" id="emailInput" placeholder="Email" />
+          <input type="text" id="addressInput" placeholder="Address" />
+          <textarea id="notesInput" placeholder="Notes..."></textarea>
+          <input type="text" id="tagsInput" placeholder="Tags" />
+          <label><input type="checkbox" id="favoriteInput" /> Favorite</label>
+          <input type="file" id="imageInput" accept="image/*" /> <!-- העלאת תמונה -->
+          <div class="form-buttons">
+            <button type="submit">Save</button>
+            <button type="button" id="cancelBtn">Cancel</button>
+          </div>
+        </form>
       </div>
     </div>
 
-    <ul class="contact-list">
-      <li class="contact-card">
-        <img src="/images/Roni.png" alt="Avatar">
-        <div class="contact-info">
-          <h3>Roni</h3>
-          <p>0525252525</p>
-        </div>
-        <div class="contact-actions">
-          <button title="Info">ℹ️</button>
-          <button title="Edit">📝</button>
-          <button title="Delete">🗑️</button>
-          <button title="Favorite">⭐</button>
-        </div>
-      </li>
+    <!-- Info Modal -->
+     <!-- חלון מידע של איש קשר -->
+    <div id="infoOverlay" class="hidden">
+      <div class="popup" id="infoContent"></div>
+    </div>
+  </main>
 
-      <li class="contact-card">
-        <img src="/images/Kai.png" alt="Avatar">
-        <div class="contact-info">
-          <h3>Kai</h3>
-          <p>0585858585</p>
-        </div>
-        <div class="contact-actions">
-          <button title="Info">ℹ️</button>
-          <button title="Edit">📝</button>
-          <button title="Delete">🗑️</button>
-          <button title="Favorite">⭐</button>
-        </div>
-      </li>
+    <footer class="footer">
+      <p>© 2025 Noor Suboh & Besam Farah. All rights reserved.</p> <!-- קרדיט -->
+    </footer>
 
-      <li class="contact-card">
-        <img src="/images/Lily.webp" alt="Avatar">
-        <div class="contact-info">
-          <h3>Lily</h3>
-          <p>0505050505</p>
-        </div>
-        <div class="contact-actions">
-          <button title="Info">ℹ️</button>
-          <button title="Edit">📝</button>
-          <button title="Delete">🗑️</button>
-          <button title="Favorite">⭐</button>
-        </div>
-      </li>
-
-      <li class="contact-card">
-        <img src="/images/Barbara.webp" alt="Avatar">
-        <div class="contact-info">
-          <h3>Barbara</h3>
-          <p>0533333333</p>
-        </div>
-        <div class="contact-actions">
-          <button title="Info">ℹ️</button>
-          <button title="Edit">📝</button>
-          <button title="Delete">🗑️</button>
-          <button title="Favorite">⭐</button>
-        </div>
-      </li>
-
-      <li class="contact-card">
-        <img src="/images/Xiao.png" alt="Avatar">
-        <div class="contact-info">
-          <h3>Xiao</h3>
-          <p>0544444444</p>
-        </div>
-        <div class="contact-actions">
-          <button title="Info">ℹ️</button>
-          <button title="Edit">📝</button>
-          <button title="Delete">🗑️</button>
-          <button title="Favorite">⭐</button>
-        </div>
-      </li>
-
-      <li class="contact-card">
-        <img src="/images/Lisa.webp" alt="Avatar">
-        <div class="contact-info">
-          <h3>Lisa</h3>
-          <p>0555555555</p>
-        </div>
-        <div class="contact-actions">
-          <button title="Info">ℹ️</button>
-          <button title="Edit">📝</button>
-          <button title="Delete">🗑️</button>
-          <button title="Favorite">⭐</button>
-        </div>
-      </li>
-
-      <li class="contact-card">
-        <img src="/images/David.png" alt="Avatar">
-        <div class="contact-info">
-          <h3>David</h3>
-          <p>0595959595</p>
-        </div>
-        <div class="contact-actions">
-          <button title="Info">ℹ️</button>
-          <button title="Edit">📝</button>
-          <button title="Delete">🗑️</button>
-          <button title="Favorite">⭐</button>
-        </div>
-      </li>
-    </ul>
-  </div>
-
-  <footer class="footer">
-    <p>© 2025 Noor Suboh & Besam Farah. All rights reserved.</p>
-  </footer>
-
-</body>
+    <script src="main.js"></script> <!-- קישור לקובץ JS -->
+  </body>
 </html>

@@ -1,16 +1,25 @@
  /* נור צובח 214459463
 ביסאם פרח 211861208  */
-html, body {
-  height: 100%;
+/* איפוס כללי לכל האלמנטים */
+* {
+  padding: 0;
   margin: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background-color: #e7f0f9;
-  color: #333;
+  box-sizing: border-box;
 }
 
+/* עיצוב בסיסי של גוף הדף */
 body {
+  height: 100%;
+  font-family: "Segoe UI", sans-serif;
+  background-color: #e7f0f9; /* רקע כללי */
+  color: #333;
   display: flex;
   flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex-grow: 1; /* מאפשר ל-main להתפשט לגובה */
 }
 
 .container {
@@ -20,11 +29,11 @@ body {
   margin: 2rem auto;
   background-color: white;
   border-radius: 15px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   padding: 1.5rem;
 }
 
-h1 {
+header {
   text-align: center;
   color: #1d3557;
   margin-bottom: 1rem;
@@ -64,11 +73,8 @@ h1 {
   font-weight: bold;
 }
 
-.add-btn {
-  background-color: #259bfc;
-  color: white;
-}
-
+/* צבעים ייחודיים לכפתורים */
+.add-btn,
 .delete-all {
   background-color: #259bfc;
   color: white;
@@ -85,6 +91,7 @@ h1 {
   margin-top: 1.5rem;
 }
 
+/* כרטיס איש קשר */
 .contact-card {
   width: 98%;
   display: flex;
@@ -107,6 +114,11 @@ h1 {
   margin-right: 1rem;
 }
 
+.popup img {
+  width: 100px;
+  height: 100px;
+}
+
 .contact-info h3 {
   margin: 0;
   font-size: 1.1rem;
@@ -118,6 +130,7 @@ h1 {
   color: #555;
 }
 
+/* פעולות (עריכה, מחיקה וכו') */
 .contact-actions {
   margin-left: auto;
   display: flex;
@@ -136,6 +149,7 @@ h1 {
   transform: scale(1.2);
 }
 
+/* עיצוב תחתון */
 .footer {
   margin-top: 3rem;
   padding: 1rem;
@@ -145,4 +159,123 @@ h1 {
   font-size: 0.9rem;
   border-top: 1px solid #cbd5e1;
   border-radius: 0 0 15px 15px;
+}
+
+/* חלון קופץ */
+#popupOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+
+#popupOverlay.show {
+  display: flex;
+}
+
+.popup {
+  position: relative;
+  background-color: white;
+  padding: 2rem;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 400px;
+}
+#contactForm {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.hidden {
+  display: none;
+}
+/* Info Modal */
+/* חלון מידע */
+#infoOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+#infoOverlay.show {
+  display: flex;
+}
+
+.info-popup {
+  position: relative;
+  background-color: white;
+  padding: 1rem;
+  border-radius: 10px;
+  max-width: 320px;
+  width: 90%;
+  font-size: 0.95rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* כפתור X */
+/* כפתור סגירה בחלון מידע */
+.close-info {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: #444;
+}
+
+.form-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+
+/* מצב לילה (night mode) */
+body.night h1 {
+  color: white;
+}
+
+body.night .contact-info h3 {
+  color: #1d3557; /* צבע השם הרגיל של אנשי הקשר */
+}
+
+body.night {
+  background-color: #1c1c1c;
+  color: #f1f1f1;
+}
+
+body.night header,
+body.night .container {
+  background-color: #222;
+  color: #ffffff;
+}
+
+body.night input,
+body.night textarea {
+  background-color: #444;
+  color: #f5e4e4;
+  border: 1px solid #666;
+}
+
+body.night .footer {
+  background-color: #1e1e1e;
+  color: #ccc;
+}
+body.night .popup {
+  background-color: #1e1e1e;
+  color: #ccc;
 }
