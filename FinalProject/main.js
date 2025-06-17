@@ -82,3 +82,54 @@ let contactsArr = [
     image: "./images/David.png",
   },
 ];
+
+let editingId = null; // מזהה עריכה של איש קשר
+
+// פונקציה שמציגה את רשימת אנשי הקשר במסך
+function renderContacts() {
+  listEl.innerHTML = ""; // איפוס תוכן קודם
+  const searchValue = searchInput.value.toLowerCase();
+
+  let filtered = contactsArr.filter(
+    (c) =>
+      c.name.toLowerCase().includes(searchValue) ||
+      (c.tags && c.tags.toLowerCase().includes(searchValue))
+  );
+
+  filtered.sort((a, b) => b.favorite - a.favorite); // מיון לפי מועדפים
+
+  contactCountEl.textContent = `${filtered.length} contacts`;
+
+  for (let c of filtered) {
+    const li = document.createElement("li");
+    li.className = "contact-card";
+    li.innerHTML = `
+        <img src="${c.image || "/images/default.webp"}" alt="Avatar" " class>
+          <div class="contact-info">
+            <h3>${c.name}</h3>
+            <p>${c.phone}</p>
+          </div>
+        <div class="contact-actions">
+          <button onclick="showInfo('${c.id}')">ℹ️</button>
+          <button onclick="editContact('${c.id}')">📝</button>
+          <button onclick="deleteContact('${c.id}')">🗑️</button>
+          <button onclick="toggleFavorite('${c.id}')">${
+      c.favorite ? "⭐" : "☆"
+    }</button>
+        </div>
+      `;
+    listEl.appendChild(li);
+  }
+}
+
+// פונקציה שמחזירה מזהה ייחודי
+function generateID() {
+  return Date.now().toString() + Math.random().toString(36).slice(2);
+}
+
+// איפוס הטופס לערך ריק
+function resetForm() {
+  contactForm.reset();
+  editingId = null;
+  imageInput.value = "";
+}
