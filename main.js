@@ -183,3 +183,25 @@ addBtn.addEventListener("click", () => {
 cancelBtn.addEventListener("click", () => {
   popupOverlay.classList.remove("show");
 });
+
+// סינון תוך כדי הקלדה
+searchInput.addEventListener("input", renderContacts);
+
+// מחיקת כל אנשי הקשר
+deleteAllBtn.addEventListener("click", () => {
+  if (confirm("Delete all contacts?")) {
+    contactsArr = [];
+    renderContacts();
+  }
+});
+
+// מעבר למצב לילה
+effectBtn.addEventListener("click", () => {
+  document.body.classList.toggle("night");
+});
+
+// מחיקת איש קשר בודד
+function deleteContact(id) {
+  contactsArr = contactsArr.filter((c) => c.id !== id);
+  renderContacts();
+}
