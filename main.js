@@ -133,3 +133,53 @@ function resetForm() {
   editingId = null;
   imageInput.value = "";
 }
+// שליחה/שמירה של הטופס
+contactForm.addEventListener("submit", function (e) {
+  e.preventDefault();
+  const file = imageInput.files[0];
+  const reader = new FileReader();
+
+  reader.onload = function () {
+    const newContact = {
+      id: editingId || generateID(),
+      name: nameInput.value,
+      phone: phoneInput.value,
+      email: emailInput.value,
+      address: addressInput.value,
+      notes: notesInput.value,
+      tags: tagsInput.value,
+      favorite: favoriteInput.checked,
+      image: file
+        ? reader.result
+        : editingId
+        ? contactsArr.find((c) => c.id === editingId).image
+        : null,
+    };
+
+    if (editingId) {
+      contactsArr = contactsArr.map((c) =>
+        c.id === editingId ? newContact : c
+      );
+    } else {
+      contactsArr.push(newContact);
+    }
+
+    renderContacts();
+    popupOverlay.classList.remove("show");
+    resetForm();
+  };
+
+  if (file) reader.readAsDataURL(file);
+  else reader.onload();
+});
+
+// פתיחת טופס הוספה
+addBtn.addEventListener("click", () => {
+  resetForm();
+  popupOverlay.classList.add("show");
+});
+
+// ביטול טופס
+cancelBtn.addEventListener("click", () => {
+  popupOverlay.classList.remove("show");
+});
