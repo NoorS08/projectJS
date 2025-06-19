@@ -205,3 +205,52 @@ function deleteContact(id) {
   contactsArr = contactsArr.filter((c) => c.id !== id);
   renderContacts();
 }
+// שינוי סטטוס מועדף
+function toggleFavorite(id) {
+  const contacts = contactsArr.find((c) => c.id === id);
+  if (contacts) {
+    contacts.favorite = !contacts.favorite;
+    renderContacts();
+  }
+}
+
+// עריכת איש קשר קיים
+function editContact(id) {
+  const c = contactsArr.find((x) => x.id === id);
+  if (!c) return;
+
+  nameInput.value = c.name;
+  phoneInput.value = c.phone;
+  emailInput.value = c.email;
+  addressInput.value = c.address;
+  notesInput.value = c.notes;
+  tagsInput.value = c.tags;
+  favoriteInput.checked = c.favorite;
+  editingId = id;
+
+  popupOverlay.classList.add("show");
+}
+
+// ✅ פונקציית תצוגת פרטי איש קשר
+// תצוגת מידע על איש קשר
+function showInfo(id) {
+  const c = contactsArr.find((x) => x.id === id);
+  if (!c) return;
+
+  infoContent.innerHTML = `
+    <button class="close-info" onclick="infoOverlay.classList.remove('show')">❌</button>
+    <h3>${c.name}</h3>
+    <p>📞 ${c.phone}</p>
+    ${c.email ? `<p>📧 ${c.email}</p>` : ""}
+    ${c.address ? `<p>📍 ${c.address}</p>` : ""}
+    ${c.notes ? `<p>📝 ${c.notes}</p>` : ""}
+    ${c.tags ? `<p>🏷️ ${c.tags}</p>` : ""}
+    ${
+      c.image
+        ? `<img src="${c.image}" style="max-width:100%;border-radius:8px;margin-top:8px;" />`
+        : ""
+    }
+  `;
+  infoOverlay.classList.add("show");
+}
+
