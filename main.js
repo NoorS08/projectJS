@@ -1,6 +1,7 @@
 //  נור צובח 214459463
 // ביסאם פרח 211861208
 "use strict";
+
 // משתנים לקישור לאלמנטים מה-DOM
 const listEl = document.getElementById("contactsList");
 const contactCountEl = document.querySelector(".contact-count");
@@ -133,6 +134,7 @@ function resetForm() {
   editingId = null;
   imageInput.value = "";
 }
+
 // שליחה/שמירה של הטופס
 contactForm.addEventListener("submit", function (e) {
   e.preventDefault();
@@ -205,6 +207,7 @@ function deleteContact(id) {
   contactsArr = contactsArr.filter((c) => c.id !== id);
   renderContacts();
 }
+
 // שינוי סטטוס מועדף
 function toggleFavorite(id) {
   const contacts = contactsArr.find((c) => c.id === id);
@@ -254,3 +257,12 @@ function showInfo(id) {
   infoOverlay.classList.add("show");
 }
 
+// ✅ סגירת החלון הקופץ אם לוחצים מחוץ לו
+// סגירת חלון מידע אם לוחצים מחוץ
+window.addEventListener("click", (e) => {
+  if (e.target === infoOverlay) {
+    infoOverlay.classList.remove("show");
+  }
+});
+// הצגה ראשונית של אנשי הקשר
+renderContacts();
